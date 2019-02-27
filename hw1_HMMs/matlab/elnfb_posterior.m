@@ -31,6 +31,5 @@ end
 % return a Txn matrix
 eln_post = gamma';
 
-
 end
 

@@ -1,0 +1,4 @@
+\contentsline {section}{Problem 1 - Forward-Backward Algorithm, Short Sequence}{2}% 
+\contentsline {section}{Problem 2 - Likelihood-Weighted Approximate Inference, Short Sequence}{3}% 
+\contentsline {section}{Problem 3 - Mann Extended-Logarithm Forward-Backward Algorithm, Long Sequence}{4}% 
+\contentsline {section}{Appendix - MATLAB Code}{6}% 

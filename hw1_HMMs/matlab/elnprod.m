@@ -1,5 +1,4 @@
 function [ prod ] = elnprod( eln_x, eln_y )
-%        [ prod ] = elnprod( eln(x), eln(y) )
 % ELNSUM - Extended Logartithm Product function
 %   Computes the extended logarithm of the product of x and y given as
 %   given as inputs the extended logarithm of x and y, as defined by Mann,

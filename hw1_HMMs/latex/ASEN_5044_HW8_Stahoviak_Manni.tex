@@ -1,0 +1,585 @@
+\documentclass[]{article}
+
+\usepackage[margin=1.0in]{geometry}
+
+\usepackage{amsmath}  % assumes amsmath package installed
+\usepackage{amssymb}  % assumes amsmath package installed
+\usepackage{graphicx}
+\usepackage{todonotes}
+\usepackage{float}
+
+\usepackage[framed,numbered,autolinebreaks,useliterate]{mcode}
+%\usepackage{filecontents}
+\usepackage{pdfpages}
+%
+%opening
+\title{Statistical Estimation for Dynamical Systems\\ASEN 5044 - Homework 8}
+\author{Carl Stahoviak, Jonathan Manni}
+
+\begin{document}
+
+\maketitle
+
+%\begin{abstract}
+%
+%\end{abstract}
+
+\tableofcontents
+\listoftodos[Notes]
+
+\newpage
+\section*{Problem 1}
+\addcontentsline{toc}{section}{Problem 1}
+
+\subsection*{Part a}
+\addcontentsline{toc}{subsection}{Part a}
+
+Assume that the CT LTI dynamics for two aircraft A and B are now augmented to include process noise for accelerations due to directional wind disturbances modeled by vector AWGN processes $\tilde{w}_A(t),\tilde{w}_B(t) \in \mathbb{R}^2$, given by
+
+$$
+\Gamma_A = \left[
+\begin{array}{cc}
+0 & 0\\
+1 & 0\\
+0 & 0\\
+0 & 1
+\end{array}
+\right],\quad
+E[\tilde{w}_A(t)]=0,\quad E[\tilde{w}_A(t)\tilde{w}_A^T(t)]=W\cdot\delta(t-\tau)
+$$
+
+$$
+\Gamma_B = \left[
+\begin{array}{cc}
+0 & 0\\
+1 & 0\\
+0 & 0\\
+0 & 1
+\end{array}
+\right],\quad
+E[\tilde{w}_B(t)]=0,\quad E[\tilde{w}_B(t)\tilde{w}_B^T(t)]=W\cdot\delta(t-\tau)
+$$
+
+\noindent where the intensity covariance matrix $W$ is the same for both A and B.
+
+$$
+W = q_w\cdot\left[\begin{array}{cc} 2 & 0.05\\ 0.05 & 0.5 \end{array}\right]
+$$
+
+\noindent and has appropriate units for acceleration.\\
+
+\noindent Specify the full DT LTI stochastic dynamics models for each aircraft, i.e. provide the corresponding ($F_A$, $Q_A$) and ($F_B$, $Q_B$) matrices for both aircraft (show your work). Assume that $q_w = 10$ (m/s)$^2$, $\Delta T = 0.5$ sec, $\Omega_A = 0.045$ rad/s and $\Omega_B = -0.045$ rad/s.\\
+
+\noindent\textbf{Solution}\\
+\noindent The DT LTI matrices ($F_A$, $Q_A$) and ($F_B$, $Q_B$) are found via \textbf{Van Loan's method}:
+
+\begin{eqnarray}
+	\begin{tabular}{lll}
+		1.$\qquad$ & $\text{Form Matrix}\:\mathbf{M}$ &$ M = \left[\begin{array}{cc} -A & \Gamma W \Gamma^T\\ 0 & A^T\end{array}\right]\Delta T$\\ \\
+		2.$\qquad$ & $\text{Compute Matrix Exponential}\:e^{\mathbf{M}}$ &  $\exp(M) = \left[\begin{array}{cc} (\cdots) & F^{-1}Q\\ 0 & F^T\end{array}\right]$\\ \\
+		3.$\qquad$ & $\text{Solve for}\:\mathbf{Q}$ & $Q = (F^T)^T \cdot (F^{-1}Q) = FF^{-1}Q$
+	\end{tabular}
+\end{eqnarray}
+
+\noindent where the intensity covariance matrix $W$ and the (\textcolor{red}{}) $\Gamma$ are given in the problem statement above, and $A$ is given by the state space formulation of the equations of motion
+
+\begin{equation}
+\begin{aligned}
+\ddot{\zeta} &= -\Omega\dot{\eta} \\
+\ddot{\eta} &= \Omega\dot{\zeta}
+\end{aligned}
+\end{equation}
+
+\noindent It follows that for the state vector $x(t) = \left[\zeta, \dot{\zeta}, \eta, \dot{\eta}\right]$, $A$ can be expressed as
+
+$$ 
+A = \left[\begin{array}{cccc}
+0 & 1      & 0 & 0\\
+0 & 0      & 0 & -\Omega\\
+0 & 0      & 0 & 1\\ 
+0 & \Omega & 0 & 0
+\end{array}\right]
+$$
+
+\noindent From Van Loan's method, we have the following DT system matrices ($F_A$, $F_B$) and process noise covariance matrices ($Q_A$, $Q_B$)
+
+$$
+F_A = \left[\begin{array}{cccc}
+1 & 0.5    & 0 & -0.0056\\
+0 & 0.9997 & 0 & -0.0225\\
+0 & 0.0056 & 1 &  0.5\\
+0 & 0.0225 & 0 &  0.9997
+\end{array}\right],\qquad
+Q_A = \left[\begin{array}{cccc}
+0.8329 &   2.4983 &   0.0261 &   0.0953\\
+2.4983 &   9.9931 &   0.0719 &   0.3343\\
+0.0261 &   0.0719 &   0.2087 &   0.6266\\
+0.0953 &   0.3343 &   0.6266 &   2.5069
+\end{array}\right]
+$$
+
+$$
+F_B = \left[\begin{array}{cccc}
+1 & 0.5     & 0 & 0.0056\\
+0 & 0.9997  & 0 & 0.0225\\
+0 & -0.0056 & 1 & 0.5\\
+0 & -0.0225 & 0 & 0.9997
+\end{array}\right],\qquad
+Q_B = \left[\begin{array}{cccc}
+0.8336 &   2.5011  &  0.0156 &   0.0297\\
+2.5011 &   10.0044 &  0.0531 &   0.1656\\
+0.0156 &   0.0531  &  0.2080 &   0.6238\\
+0.0297 &   0.1656  &  0.6238 &   2.4956
+\end{array}\right]
+$$\\
+
+\noindent Van Loan's method is implemented in the following MATLAB code:
+
+\begin{lstlisting}
+	w = 0.045;  % rotational rate
+	qw = 10;    % process noise covariance (Q) scaling factor
+	dt = 0.5;   % time step
+	
+	A_a = [0 1 0  0;
+	       0 0 0 -w;
+	       0 0 0  1;
+	       0 w 0  0];
+	
+	w = -w; % rotational rate opposite for Aircraft b
+	
+	A_b = [0 1 0  0;
+	       0 0 0 -w;
+	       0 0 0  1;
+	       0 w 0  0];
+	
+	Gamma = [0 0; 1 0; 0 0; 0 1];
+	W = qw*[2 0.05; 0.05 0.5];
+	
+	% Van Loan's Method to solve for (Fa,Qa), (Fb,Qb)
+	Ma = [-A_a Gamma*W*Gamma'; zeros(4) A_a']*dt;
+	Mb = [-A_b Gamma*W*Gamma'; zeros(4) A_b']*dt;
+	
+	STM_a = expm(Ma);
+	STM_b = expm(Mb);
+	
+	Fa = STM_a(5:8,5:8)'
+	Fb = STM_b(5:8,5:8)'
+	
+	Qa = Fa*STM_a(1:4,5:8)
+	Qb = Fb*STM_b(1:4,5:8)
+\end{lstlisting}
+
+
+\subsection*{Part b}
+\addcontentsline{toc}{subsection}{Part b}
+
+In the following parts, you should fix the MATLAB random number seed to 100 – in more recent versions of MATLAB, this is accomplished using the \texttt{rng(100)} command, to ensure reproduceable results between successive code refinements and runs.
+
+\subsubsection*{Part b-i - Simulate Noisey Measrement Data for Aircraft A}
+\addcontentsline{toc}{subsubsection}{Part b-i - Simulate Noisey Measrement Data for Aircraft A}
+
+A ground tracking station monitors Aircraft A, and converts 3D range and bearing data into 2D ‘pseudo-measurements’ $y_A(k)$ with the following DT measurement model
+
+\noindent where $R_A$ has units of $\text{m}^2$.\\
+
+\noindent The ground truth state history for A is contained in the file \texttt{hw8problem1data.mat} (in the array ‘xasingle\_truth’ – the first column contains $x_A(0)$, and subsequent columns contain $x_A(k)$ for $k \geq 1$). Simulate a series of noisy measurements $y_A(k)$ for $k \geq 1$ up to 100 secs and store the results in an array. \textit{Provide a plot of the components of your simulated $y_A(k)$ data vs. time for the first 20 seconds.}\\
+
+\noindent\textbf{Solution}\\
+
+\todo[inline]{Insert description of measurement equation here, y=Hx+v}
+
+\begin{figure}[H]
+	\begin{center}  
+		\includegraphics[scale=0.75]{HW8_5044_P1bi.eps}  
+		\caption{Components of simulated noisey measurement data, $y_A(k)$ for the first 20 seconds of flight}
+		\label{fig:HW8_5044_P1bi}
+	\end{center}  
+\end{figure}
+
+\noindent The simulated data used to create Figure \ref{fig:HW8_5044_P1bi} are generated by the following MATLAB code
+
+\begin{lstlisting}
+	load('hw8problem1_data.mat')
+	M = length(xasingle_truth);
+	
+	H0 = [1 0 0 0; 0 0 1 0];
+	Ra = [20 0.05; 0.05 20];
+	
+	Sv = chol(Ra);
+	
+	rng(100); 	% seed randn()
+	
+	for(i=1:M)
+		my = 0;                 % my = mean shift
+		q = randn(2,1);         % randn() samples from the normal (Guassian)
+		v(:,i) = my + Sv'*q;    % distribution with mean = 0, variance = 1   
+	
+		% create simulated "noisey" measurement
+		y(:,i) = H0*xasingle_truth(:,i) + v(:,i);
+	end
+\end{lstlisting}
+
+\subsubsection*{Part b-ii - Implement Kalman Filter, Single Aircraft}
+\addcontentsline{toc}{subsubsection}{Part b-ii - Implement Kalman Filter, Single Aircraft}
+
+Implement a Kalman filter to estimate aircraft A’s state at each time step $k \geq 1$ of the simulated measurements you generated in Part b-i. Initialize your filter estimate with the following state mean and covariance at time $k=0$:
+
+$$
+\mu_A\left(0\right)=\left[
+\begin{array}{c} 0\:m\\ 85\cos\left(\frac{\pi}{4}\right) m/s\\ 0\:m\\ -85\sin\left(\frac{\pi}{4}\right) m/s
+\end{array}\right],\qquad
+P_A\left(0\right)=900\cdot\left[
+\begin{array}{cccc}
+10\:m^2 & 0          & 0       & 0\\
+0       & 2\:(m/s)^2 & 0       & 0\\
+0       & 0          & 10\:m^2 & 0\\
+0       & 0          & 0       & 2\:(m/s)^2
+\end{array}
+\right]
+$$\\
+
+\noindent \textit{Provide plots of each component of the estimated state error vs. time, along with the estimated $\pm2\sigma$ error bounds.} Comment on your results; in particular, is your KF output more certain about some states than others? If so, explain why?\\
+
+\noindent\textbf{Solution}\\
+\noindent The Kalman Filter provides an estimate of the state $\hat{x}_{k+1}^+$ in two stages. The first is the \textit{pure prediction} update step (Equation \ref{eq:Kalman1}), and the second is the \textit{measurement} update step (Equation \ref{eq:Kalman2})
+
+\begin{eqnarray}
+	\begin{aligned}
+		\hat{x}_{k+1}^- &= F\hat{x}_k^+ + Gu_k\\
+		P_{k+1}^- &= FP_{k+1}^+F^T + Q\\
+		K_{k+1} &= P_{k+1}^-H_{k+1}^T\left(H_{k+1}P_{k+1}^-H_{k+1}^T + R\right)^{-1}
+	\end{aligned}
+	\label{eq:Kalman1}
+\end{eqnarray}
+
+\begin{eqnarray}
+	\begin{aligned}
+		\hat{x}_{k+1}^+ &= \hat{x}_{k+1}^- + K_{k+1}\left(y_{k+1}-H){k+1}\hat{x}_{k+1}^-\right)\\
+		P_{k+1}^+ &= \left(I-K_{k+1}H_{k+1}\right)P_{k+1}^-
+	\end{aligned}
+	\label{eq:Kalman2}
+\end{eqnarray}
+
+\begin{figure}[H]
+	\begin{center}  
+		\includegraphics[scale=0.75]{HW8_5044_P1bii_StateErr.eps}  
+		\caption{Kalman Filter estimator error of states $x_A(t) = \left[\zeta_A, \dot{\zeta}_A, \eta_A, \dot{\eta}_A\right]$ and corresponding $2\sigma$ error bounds}
+		\label{fig:HW8_5044_P1bii_StateErr}
+	\end{center}  
+\end{figure}
+
+\noindent Kalman Filter estimation confidence is measured by the diagonal terms of the state estimation error covariance matrix $P_{k+1}^+$ from which the $2\sigma$ bounds are calculated. The magnitude of the $2\sigma$ bounds for the states are
+
+$$
+\zeta_{2\sigma} = 6.742,\quad \dot{\zeta}_{2\sigma} = 8.842,\quad \eta_{2\sigma} = 5.989,\quad \dot{\eta}_{2\sigma} = 5.407
+$$\\
+
+\noindent The Kalman Filter is most certain about $\dot{\eta}_A$ and least certain about $\dot{\zeta}_A$. This goes against intuition. \textbf{Question} I would think that the Kalman Filter would be most certain about the position states, $\zeta_A$ and $\eta_A$ because measurements of these states are  available; whereas, measurements of the velocities $\dot{\zeta}$ and $\dot{\eta}$ are not available.\\
+
+\noindent The Kalman Filter is implemented in the following MATLAB code
+
+\begin{lstlisting}
+	mu_a0 = [0; 85*cos(pi/4); 0; -85*sin(pi/4)];
+	Pa0  = 900*diag([10 2 10 2]);
+	H = H0;
+	
+	xa_hat(:,1) = mu_a0;    % init xa_hat
+	Pa = Pa0;               % init Pa
+	
+	sigma_a = zeros(4,M);
+	sigma_a(1,1) = sqrt(Pa0(1,1));
+	sigma_a(2,1) = sqrt(Pa0(2,2));
+	sigma_a(3,1) = sqrt(Pa0(3,3));
+	sigma_a(4,1) = sqrt(Pa0(4,4));
+	
+	err_a = zeros(4,M);		% init error array
+	
+	for(i=1:M-1)
+		% KF pure prediction update
+		xa_hat(:,i+1) = Fa*xa_hat(:,i);
+		Pa = Fa*Pa*Fa' + Qa;
+		K = Pa*H'*inv(H*Pa*H' + Ra);
+	
+		% KF measurement update
+		xa_hat(:,i+1) = xa_hat(:,i+1) + K*(y(:,i+1) - H*xa_hat(:,i+1));
+		Pa = (eye(4) - K*H)*Pa;
+	
+		% extract std dev from state estimation error covariance matrix
+		sigma_a(1,i+1) = sqrt(Pa(1,1));
+		sigma_a(2,i+1) = sqrt(Pa(2,2));
+		sigma_a(3,i+1) = sqrt(Pa(3,3));
+		sigma_a(4,i+1) = sqrt(Pa(4,4));
+	
+		err_a(:,i+1) = xasingle_truth(:,i+1) - xa_hat(:,i+1);
+	end
+\end{lstlisting}
+
+\subsection*{Part c}
+\addcontentsline{toc}{subsection}{Part c}
+
+Consider now estimating the states of both aircraft A and B, whose true state histories are given in \texttt{hw8problem1data.mat} in the arrays ‘xadouble truth’ and ‘xbdouble truth’ (these contain $x_(0)$ and $x_B(0)$ in their first columns, respectively, and subsequent columns contain $x_A(k)$ and $x_B(k)$ for $k\geq1$). Assume that the initial state uncertainties at time $k=0$ for aircraft A are the same as in Part b-ii, and the for aircraft B are as follows
+
+$$
+\mu_B\left(0\right)=\left[
+\begin{array}{c} 3200\:m\\ 85\cos\left(\frac{\pi}{4}\right) m/s\\ 3200\:m\\ -85\sin\left(\frac{\pi}{4}\right) m/s
+\end{array}\right],\qquad
+P_B\left(0\right)=900\cdot\left[
+\begin{array}{cccc}
+11\:m^2 & 0          & 0       & 0\\
+0       & 4\:(m/s)^2 & 0       & 0\\
+0       & 0          & 11\:m^2 & 0\\
+0       & 0          & 0       & 4\:(m/s)^2
+\end{array}
+\right]
+$$
+
+\subsubsection*{Part c-i - Implement Kalman Filter, Two Aircraft}
+\addcontentsline{toc}{subsubsection}{Part c-i - Implement Kalman Filter, Two Aircraft}
+
+Suppose the tracking station can only directly sense one aircraft at a time, and thus cannot sense B while it senses A. However, a transponder between A and B provides a noisy measurement $y_D(k)$ of the difference in their 2D positions, $r_A = \left[\zeta_A, \eta_A\right]^T$ and $r_B = \left[\zeta_B, \eta_B\right]^T$
+
+$$
+y_D(k) = r_A(k)-r_B(k)+v_D(k)
+$$
+
+$$
+E[v_D(k)]=0,\quad E[v_D(k)(k)v_D^T(k)] = R_D\delta(k,j),\quad R_D = \left[\begin{array}{cc} 10 & 0.15\\0.15 & 10\end{array}\right]
+$$
+
+\noindent where $R_D$ has units of $m^2$. First, simulate a series of noisy transponder measurements $y_D(k)$ between both aircraft for $k\geq1$, as well as a new set of ground measurements to aircraft A, $y'_A(k)$ (using the same noise statistics as before), and stack these on top of each other in a new data array for augmented measurements $y_S(k)=[y'_A(k),y_D(k)]^T$. Then, implement a new KF to estimate the joint augmented aircraft states $x_S(k)=[x_A(k),x_B(k)]^T$ at each time step $k\geq1$. (Hint: you will first need to carefully define new $F$, $Q$, $H$, $R$, and $P(0)$ matrices for $x_S$ to capture the combined state uncertainties and measurements – the \texttt{blkdiag} command will be useful here. Be sure to explain how you got these matrices). \textit{Provide plots only of the position errors for each aircraft vs. time.}\\
+
+\noindent\textbf{Solution}\\
+\noindent The Kalman Filter is implemented similarly to Part b-ii, with several important differences. First, the $F$, $Q$, $H$, $R$, and $P(0)$ matrices must be re-defined as block diagonal matrices to account for the fact that 8 states corresponding to $\hat{x}=[x_A(k),x_B(k)]^T$ are now being estimated. 
+
+\begin{equation}
+	F = \left[\begin{array}{cc}F_A & 0\\ 0 & F_B\end{array}\right],\quad
+	Q = \left[\begin{array}{cc}Q_A & 0\\ 0 & Q_B\end{array}\right],\quad
+	R = \left[\begin{array}{cc}R_A & 0\\ 0 & R_D\end{array}\right],\quad
+	P(0) = \left[\begin{array}{cc}P_A(0) & 0\\ 0 & P_B(0)\end{array}\right]
+	\label{eq:KF_ci_1}
+\end{equation}
+
+\noindent Similary, the DT measurement matrix $H$ must also be re-defined to account for the structure of the measurement vector $y_S(k)=[y'_A(k),y_D(k)]^T$
+
+\begin{equation}
+	H = \left[\begin{array}{cc}H & 0\\ H & -H\end{array}\right],\quad
+	H = \left[\begin{array}{cccc}1 & 0 & 0 & 0\\0 & 0 & 1 & 0\end{array}\right]
+	\label{eq:KF_ci_2}
+\end{equation}
+
+\noindent The Kalman Filter does a \textit{very good} job of estimating the positions of aircrafts A and B when noisey measurements of aircraft A and transponder measurements giving relative distance between aircrafts A and B are available, i.e $y_S(k)=[y'_A(k),y_D(k)]^T$. This can be seen in Figure \ref{fig:HW8_5044_P1ci_2Dpath}.
+
+\begin{figure}[H]
+	\begin{center}  
+		\includegraphics[scale=0.75]{HW8_5044_P1ci_2Dpath.eps}  
+		\caption{Kalman Filter Estimate of Flight Paths A and B overlayed on the True Flight Paths}
+		\label{fig:HW8_5044_P1ci_2Dpath}
+	\end{center}  
+\end{figure}
+
+\begin{figure}[H]
+	\begin{center}  
+		\includegraphics[scale=0.75]{HW8_5044_P1ci_PosError.eps}  
+		\caption{Kalman Filter estimator error of 2D position states and corresponding $2\sigma$ error bounds}
+		\label{fig:HW8_5044_P1ci_PosError}
+	\end{center}  
+\end{figure}
+
+\noindent The augmented Kalman Filter described by Equations \ref{eq:KF_ci_1}-\ref{eq:KF_ci_2} is implemented in the following MATLAB code
+
+\begin{lstlisting}
+	F = blkdiag(Fa,Fb);
+	Q = blkdiag(Qa,Qb);
+	R = blkdiag(Ra,Rd);
+	P = blkdiag(Pa0,Pb0);
+	H = [H0 zeros(2,4); H0 -H0];	% re-define H to account new measurement vector
+	
+	xS_hat(:,1) = [mu_a0; mu_b0];   % init xS_hat
+	err = zeros(8,M);
+	
+	sigma = zeros(4,M);
+	sigma(1,1) = sqrt(P(1,1));
+	sigma(2,1) = sqrt(P(2,2));
+	sigma(3,1) = sqrt(P(3,3));
+	sigma(4,1) = sqrt(P(4,4));
+	
+	for(i=1:M-1)
+	
+		% KF pure prediction update
+		xS_hat(:,i+1) = F*xS_hat(:,i);
+		P = F*P*F' + Q;
+		K = P*H'*inv(H*P*H' + R);
+	
+		% KF measurement update
+		xS_hat(:,i+1) = xS_hat(:,i+1) + K*(yS(:,i+1) - H*xS_hat(:,i+1));
+		P = (eye(8) - K*H)*P;
+	
+		% extract std dev from state estimation error covariance matrix for position states ONLY
+		sigma(1,i+1) = sqrt(P(1,1));
+		sigma(2,i+1) = sqrt(P(3,3));
+		sigma(3,i+1) = sqrt(P(5,5));
+		sigma(4,i+1) = sqrt(P(7,7));
+	
+		err(:,i+1) = [xadouble_truth(:,i+1); xbdouble_truth(:,i+1)] - xS_hat(:,i+1);
+	end
+\end{lstlisting}
+
+\subsubsection*{Part c-ii - Kalman Filter, Transponder Measurements ONLY}
+\addcontentsline{toc}{subsubsection}{Part c-ii - Kalman Filter, Transponder Measurements ONLY}
+
+Repeat Part c-i if only the transponder measurements are now available, i.e. if $y_S(k) = y_D(k)$ for all time $k\geq1$. Comment on your results – in particular, how is this different from the results obtained in Part c.i? What explains this?\\
+
+\noindent\textbf{Solution}
+
+\noindent The Kalman Filter is implemented similarly to Part b-ii, with several important differences. First, the $F$, $Q$, $H$, $R$, and $P(0)$ matrices must be re-defined as block diagonal matrices to account for the fact that 8 states corresponding to $\hat{x}=[x_A(k),x_B(k)]^T$ are now being estimated. 
+
+\begin{equation}
+F = \left[\begin{array}{cc}F_A & 0\\ 0 & F_B\end{array}\right],\quad
+Q = \left[\begin{array}{cc}Q_A & 0\\ 0 & Q_B\end{array}\right],\quad
+R = R_D,\quad
+P(0) = \left[\begin{array}{cc}P_A(0) & 0\\ 0 & P_B(0)\end{array}\right]
+\label{eq:KF_cii_1}
+\end{equation}
+
+\noindent Similary, the DT measurement matrix $H$ must also be re-defined to account for the structure of the measurement vector $y_S(k)=y_D(k)$
+
+\begin{equation}
+H = \left[\begin{array}{cc}H & -H\end{array}\right],\quad
+H = \left[\begin{array}{cccc}1 & 0 & 0 & 0\\0 & 0 & 1 & 0\end{array}\right]
+\label{eq:KF_cii_2}
+\end{equation}
+
+\noindent The Kalman Filter does a \textit{poor} job of estimating the positions of aircrafts A and B when noisey transponder measurements giving relative distance between aircrafts A and B are available, i.e $y_S(k)=y_D(k)$. This can be seen in Figure \ref{fig:HW8_5044_P1cii_2Dpath}.
+
+\begin{figure}[H]
+	\begin{center}  
+		\includegraphics[scale=0.75]{HW8_5044_P1cii_2Dpath.eps}  
+		\caption{Kalman Filter estimate of flight paths A and B overlayed on the true flight paths when ONLY transponder measurements are available}
+		\label{fig:HW8_5044_P1cii_2Dpath}
+	\end{center}  
+\end{figure}
+
+\begin{figure}[H]
+	\begin{center}  
+		\includegraphics[scale=0.75]{HW8_5044_P1cii_PosError.eps}  
+		\caption{Kalman Filter estimator error of 2D position states and corresponding $2\sigma$ error bounds}
+		\label{fig:HW8_5044_P1cii_PosError}
+	\end{center}  
+\end{figure}
+
+\noindent Compared to Part c-i, the $2\sigma$ bounds for the positions of aircraft A and B diverge. This is because none of these states are \textit{observable} when only a measurement of their relative distance is available. As time increases, the uncertainty in absolute position grows without bound.\\
+
+\noindent The augmented Kalman Filter described by Equations \ref{eq:KF_cii_1}-\ref{eq:KF_cii_2} is implemented in the following MATLAB code
+
+\begin{lstlisting}
+	F = blkdiag(Fa,Fb);
+	Q = blkdiag(Qa,Qb);
+	R = Rd;
+	P = blkdiag(Pa0,Pb0);
+	H = [H0 -H0];
+	
+	xS_hat(:,1) = [mu_a0; mu_b0];    % init xS_hat
+	err = zeros(8,M);
+	
+	for(i=1:M-1)
+		% KF pure prediction update
+		xS_hat(:,i+1) = F*xS_hat(:,i);
+		P = F*P*F' + Q;
+		K = P*H'*inv(H*P*H' + R);
+	
+		% KF measurement update
+		xS_hat(:,i+1) = xS_hat(:,i+1) + K*(yD(:,i+1) - H*xS_hat(:,i+1));
+		P = (eye(8) - K*H)*P;
+	
+		% extract std dev from state estimation error covariance matrix for position states ONLY 
+		sigma(1,i+1) = sqrt(P(1,1));
+		sigma(2,i+1) = sqrt(P(3,3));
+		sigma(3,i+1) = sqrt(P(5,5));
+		sigma(4,i+1) = sqrt(P(7,7));
+	
+		err(:,i+1) = [xadouble_truth(:,i+1); xbdouble_truth(:,i+1)] - xS_hat(:,i+1);
+	end
+\end{lstlisting}
+
+\subsubsection*{Part c-iii}
+\addcontentsline{toc}{subsubsection}{Part c-iii}
+
+Explain what is so interesting about the structures of the covariance matrices produced by the KFs in Parts c-i and c-ii, compared to the covariance matrices that would be produced for $x_S(k)$ under pure prediction updates (i.e. with dynamic propagation steps only and no measurement updates taking place in the KF whatsoever)?\\
+
+\noindent\textbf{Solution}\\
+
+\noindent The structure of the covariance matrices for the KFs in Parts c-i and c-ii indicate dependency between the variables starting at the first time step, as indicated by non-zero terms in the off diagonals of the estimation error covariance matrices. The first calculated covariance matrix for Part c-i shows the general structure of the covariance matrices for Parts c-i and c-ii.
+
+$$
+P_1=1000\cdot\left[
+\begin{array}{cccccccc}
+0.0199  &  0.0019  &  0  &  0  &  0.0199  &  0.0033  &  0  &  0\\
+0.0019  &  1.7240  & 0  &  0.0003  &  0.0019  &  0.0003  & 0  & 0\\
+0 &  0  &  0.0199  &  0.0019  &  0  &  0  &   0.0199  &  0.0033\\
+0 &  0.0003  &  0.0019  &  1.7169  &  0  &  0  &  0.0019  &  0.0003\\
+0.0199  &  0.0019  &  0  &  0  &  0.0299  &  0.0050  &  0.0002  & 0\\
+0.0033  &  0.0003  &  0  &  0  &  0.0050  &  3.3100  &  0.0001  &  0.0002\\
+0 &  0  & 0.0199  &  0.0019  &  0.0002  &  0.0001  &  0.0299  &  0.0050\\
+0 & 0  &  0.0033  &  0.0003  & 0  &  0.0002  &  0.0050  &  3.3031
+\end{array}
+\right]
+$$\\
+
+
+\noindent The structure of the estimation error covariance matrices for the KF utilizing pure prediction only indicates that the variables remain independent throughout the use of the KF. The first calculated covariance matrix for a KF with pure prediction only shows the general structure of the covariance matrices calculated without measurement updates.
+
+$$
+P_1=10000\cdot\left[
+\begin{array}{cccccccc}
+0.9451  &  0.0902  &  0  &  0.0010   & 0 &  0 &  0  &  0\\
+0.0902  &  0.1810  & -0.0010 &   0   & 0 &  0 &  0  &  0\\
+0 & -0.0010  &  0.9450  &  0.0901    & 0 &  0 &  0  &  0\\
+0.0010  &  0  &  0.0901  &  0.1803   & 0 &  0 &  0  &  0\\
+0 & 0 & 0 & 0 & 1.0801 & 0.1802 & 0 & -0.0020\\
+0 & 0 & 0 & 0 & 0.1802 & 0.3610 &  0.0020  &  0\\
+0 & 0 & 0 & 0 &  0  &  0.0020  &  1.0800 &   0.1800\\
+0 & 0 & 0 & 0 & -0.0020 &  0  &  0.1800  &  0.3602
+a\end{array}
+\right]
+$$\\
+
+%\section*{Problem 2}
+%\addcontentsline{toc}{section}{Problem 2}
+%
+%\includepdf[pages=-]{ASEN_5044_HW8_ScannedPages.pdf}
+%
+%\section*{Part c}
+%\addcontentsline{toc}{subsection}{Part c}
+%
+%Run a simulation of the linearized DT dynamics and measurement models near the linearization point for your system, assuming an initial state perturbation from the linearization point and assuming no process noise, measurement noise, or control input perturbations. Use the results to compare and validate your Jacobians and DT model against a full nonlinear simulation of the system dynamics and measurements using ode45 in Matlab (or another similar numerical integration routine), starting from the same initial conditions for the total state vector and again assuming no process noise, no measurement noise, and no additional control inputs (i.e. aside from those possibly needed for the nominal linearization condition). Provide suitable (and appropriately labeled) plots to compare your resulting states and measurements from the linearized DT and full nonlinear DT model. (For the orbit determination problem: simulate at least one full orbit period; for all other systems, simulate at least 400 time steps).\\
+%
+%\noindent\textbf{Solution}\\
+%The $F$, $G$, and $H$ DT LTV matrices were constructed from the CT LTV $A$, $B$, and $C$ matrices using Van Loan's method, or a truncated version of the matrix exponential. The nonlinear states, as produced by an \texttt{ode45} simulation of the nonlinear dynamics were used as inputs to the DT LTV dynamics model. The linearized states, produced by the DT LTV were then used to create the measurements $y^i(t)$.\\
+%
+%\noindent\textbf{Note}\\
+%The \textit{state} used to propagate the DT LTV dynamics was \textbf{not} the perturbation from the nominal trajectory (as defined by the solution to the nonlinear equations of motion). This will need to be corrected for going forward.\\
+%
+%\noindent Additionally, only a single observer station is modeled in Figure \ref{fig:HW8_5044_P2c_measurements} and it is assumed that this observer station is able to track the satellite for the entire duration of the orbit. Again, this model is incorrect.
+%
+%\begin{figure}[H]
+%	\begin{center}  
+%		\includegraphics[scale=0.75]{HW8_5044_P2c_states.eps}  
+%		\caption{Nonlinear and Linear state propagation}
+%		\label{fig:HW8_5044_P2c_states}
+%	\end{center}  
+%\end{figure}
+%
+%\begin{figure}[H]
+%	\begin{center}  
+%		\includegraphics[scale=0.75]{HW8_5044_P2c_measurements.eps}  
+%		\caption{Nonlinear and Linear measurements}
+%		\label{fig:HW8_5044_P2c_measurements}
+%	\end{center}  
+%\end{figure}
+%
+
+
+
+
+
+\end{document}

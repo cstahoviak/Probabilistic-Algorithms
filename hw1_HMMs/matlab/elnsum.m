@@ -1,5 +1,4 @@
 function [ sum ] = elnsum( eln_x, eln_y )
-%        [ sum ] = elnsum( eln(x), eln(y) )
 % ELNSUM - Extended Logartithm Sum function
 %   Computes the extended logarithm of the sum of x and y given as inputs 
 %   the extended logarithm of x and y, as defined by Mann, 2006

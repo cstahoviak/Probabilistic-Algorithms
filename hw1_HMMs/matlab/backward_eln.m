@@ -23,6 +23,7 @@ for k=(T-1):-1:1
     end
 end
 
+% return a Txn matrix
 eln_beta = eln_beta';
 
 end
