@@ -1,4 +1,4 @@
-function [ posterior ] = fb_posterior( alpha, beta )
+function [ posterior ] = posterior_fb( alpha, beta )
 %UNTITLED2 Summary of this function goes here
 %   Detailed explanation goes here
 

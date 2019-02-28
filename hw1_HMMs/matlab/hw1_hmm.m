@@ -23,7 +23,7 @@ load('nominal_hmm_long_log.mat')
 [alpha, alpha2] = forward( px0, trans_prob, obs_prob, y_obs );    % Txn
 [beta, beta2] = backward( trans_prob, obs_prob, y_obs );                    % Txn
 % get the posterior distribution
-posterior = fb_posterior( alpha(2:end,:)', beta' );                         % Txn
+posterior = posterior_fb( alpha(2:end,:)', beta' );                         % Txn
 [~,idx] = max(posterior');
 
 % calculate data log-likelihood for forward-backward alg.
@@ -34,11 +34,11 @@ fprintf('\nFB data log-likelihood = %f\n\n', data_ll_fb);
 eln_alpha = forward_eln( px0, trans_prob, obs_prob, y_obs );
 eln_beta = backward_eln( trans_prob, obs_prob, y_obs );
 % get the posterior distribution
-eln_posterior = elnfb_posterior( eln_alpha(2:end,:)', eln_beta' );
+eln_posterior = posterior_elnfb( eln_alpha(2:end,:)', eln_beta' );
 [~,eln_idx] = max(eln_posterior');
 
 % calculate data log-likelihood for ext-log forward-backward alg.
-data_ll_elnfb = nansum(nansum(eln_alpha,2));
+data_ll_elnfb = nansum(eln_alpha(end,:));
 fprintf('\nExt-Log FB data log-likelihood = %f\n\n', data_ll_elnfb);
 
 %% Liklihood-Weighted Sampling

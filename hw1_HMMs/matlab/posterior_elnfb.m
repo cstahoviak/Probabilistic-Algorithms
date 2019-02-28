@@ -1,4 +1,4 @@
-function [ eln_post ] = elnfb_posterior( eln_alpha, eln_beta )
+function [ eln_post ] = posterior_elnfb( eln_alpha, eln_beta )
 %UNTITLED4 Summary of this function goes here
 %   Detailed explanation goes here
 
