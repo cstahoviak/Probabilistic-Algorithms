@@ -16,8 +16,8 @@ obs_prob = pyk_xk;
 
 %% The Forward-Backward Algorithm (+ Ext-Log FB Alg.)
 
-load('nominal_hmm_short_log.mat')
-% load('nominal_hmm_long_log.mat')
+% load('nominal_hmm_short_log.mat')
+load('nominal_hmm_long_log.mat')
 
 %%% standard forward-backward algorithm
 [alpha, alpha2] = forward( px0, trans_prob, obs_prob, y_obs );    % Txn

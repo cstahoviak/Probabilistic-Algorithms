@@ -17,7 +17,7 @@ for k=(T-1):-1:1
         for j=1:n 
             logbeta = elnsum( logbeta, ...
                 elnprod( eln(trans_prob(i,j)), ...
-                elnprod( obs_prob(y_obs(k+1),j), eln_beta(j,k+1) )));
+                elnprod( eln(obs_prob(y_obs(k+1),j)), eln_beta(j,k+1) )));
         end
         eln_beta(i,k) = logbeta;
     end

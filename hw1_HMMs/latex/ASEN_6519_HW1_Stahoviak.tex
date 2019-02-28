@@ -292,8 +292,7 @@ Ns = 10000;         % number of Monte Carlo sample sequences
 % get Ns Monte Carlo sample sequences of length T, and 
 % corresponding sequence weights
 T = size(y_obs,1);
-[ lw_samples, weights ] = lw_sampling( Ns, T, px0, trans_prob, ...
-obs_prob, y_obs);
+[ lw_samples, weights ] = lw_sampling( Ns, T, px0, trans_prob, obs_prob, y_obs);
 
 % get likelihood-weighted (approximate?) inference posterior
 lw_posterior = lw_inference( n, lw_samples, weights );
@@ -311,9 +310,9 @@ lw_state  = zeros(size(t,1),1);
 
 % create plot-friendly continuous states
 for i=1:length(t)
-state(i,1)     = idx(floor(t(i)));
-eln_state(i,1) = eln_idx(floor(t(i)));
-lw_state(i,1)  = lw_idx(floor(t(i)));
+	state(i,1)     = idx(floor(t(i)));
+	eln_state(i,1) = eln_idx(floor(t(i)));
+	lw_state(i,1)  = lw_idx(floor(t(i)));
 end
 
 figure(1)
