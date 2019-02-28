@@ -11,7 +11,7 @@ for k=1:T
         idx = (lw_samples(:,k) == i);
         
         % the posterior for each state i at timestep k is the weighted sum
-        % of the relaizations (indicator function) of state x_i at
+        % of the realizations (indicator function) of state x_i at
         % timestep k across all MC sample sequences
         posterior(i,k) = sum(weights(idx))/sum(weights);
     end

@@ -7,35 +7,36 @@ clc;
 clear;
 close ALL;
 
-%% Load data
+%% Load Data
 
 load('nominal_hmm_params.mat')
-
 trans_prob = pxk_xkm1;
 obs_prob = pyk_xk;
 
-%% The Forward-Backward Algorithm (+ Ext-Log FB Alg.)
+load('nominal_hmm_short_log.mat')
+% load('nominal_hmm_long_log.mat')
 
-% load('nominal_hmm_short_log.mat')
-load('nominal_hmm_long_log.mat')
+%% The Forward-Backward Algorithm
 
 %%% standard forward-backward algorithm
-[alpha, alpha2] = forward( px0, trans_prob, obs_prob, y_obs );    % Txn
-[beta, beta2] = backward( trans_prob, obs_prob, y_obs );                    % Txn
-% get the posterior distribution
-posterior = posterior_fb( alpha(2:end,:)', beta' );                         % Txn
-[~,idx] = max(posterior');
+[alpha, alpha2] = forward( px0, trans_prob, obs_prob, y_obs );  % Txn
+[beta, beta2] = backward( trans_prob, obs_prob, y_obs );        % Txn
+
+% get the posterior distribution (exact inference)
+posterior = posterior_fb( alpha(2:end,:)', beta' );             % Txn
 
 % calculate data log-likelihood for forward-backward alg.
 data_ll_fb = log(sum(alpha(end,:)));
 fprintf('\nFB data log-likelihood = %f\n\n', data_ll_fb);
 
+%% Mann Extended-Logarithm Forward-Backward Algorithm
+
 %%% Mann log-weighted (numerically-stable) forward-backward alg.
 eln_alpha = forward_eln( px0, trans_prob, obs_prob, y_obs );
 eln_beta = backward_eln( trans_prob, obs_prob, y_obs );
-% get the posterior distribution
+
+% get the posterior distribution (exact inference)
 eln_posterior = posterior_elnfb( eln_alpha(2:end,:)', eln_beta' );
-[~,eln_idx] = max(eln_posterior');
 
 % calculate data log-likelihood for ext-log forward-backward alg.
 data_ll_elnfb = nansum(eln_alpha(end,:));
@@ -44,42 +45,35 @@ fprintf('\nExt-Log FB data log-likelihood = %f\n\n', data_ll_elnfb);
 %% Liklihood-Weighted Sampling
 
 n = size(px0,1);    % number of states
-Ns = 10000;           % number of Monte Carlo sample sequences
+Ns = 10000;         % number of Monte Carlo sample sequences
 
 % get Ns Monte Carlo sample sequences of length T, and 
 % corresponding sequence weights
 T = size(y_obs,1);
-[ lw_samples, weights ] = lw_sampling( Ns, T, px0, trans_prob, ...
-                             obs_prob, y_obs);
+[ lw_samples, weights ] = lw_sampling( Ns, px0, trans_prob, ...
+                            obs_prob, y_obs);
                          
-% get likelihood-weighted (approximate?) inference posterior
+% get likelihood-weighted approximate inference posterior
 lw_posterior = lw_inference( n, lw_samples, weights );
-[~,lw_idx] = max(lw_posterior');
 
 %% Plot Data
 
 % create timeseries
-t = linspace(1,size(y_obs,1),5000)';
+tspan = linspace(1,size(y_obs,1),5000)';
 
-% create empty continuous state vectors
-state     = zeros(size(t,1),1);
-eln_state = zeros(size(t,1),1);
-lw_state  = zeros(size(t,1),1);
-
-% create plot-friendly continuous states
-for i=1:length(t)
-    state(i,1)     = idx(floor(t(i)));
-    eln_state(i,1) = eln_idx(floor(t(i)));
-    lw_state(i,1)  = lw_idx(floor(t(i)));
-end
+% get continuous state trace
+% NOTE: assumes posterior to be an nxT matrix
+[ state, trace ] = getStateTrace( tspan, posterior' );
+[ eln_state, eln_trace ] = getStateTrace( tspan, eln_posterior' );
+[ lw_state, lw_trace ] = getStateTrace( tspan, lw_posterior' );
 
 figure(1)
-plot(idx,'.','MarkerSize',10); hold on;
-plot(eln_idx,'o','MarkerSize',10);
-plot(lw_idx,'diamond','MarkerSize',7);
-plot(t,state);
-plot(t,eln_state,'--');
-% plot(t,lw_state,'--');
+plot(state,'.','MarkerSize',10); hold on;
+plot(eln_state,'o','MarkerSize',10);
+plot(lw_state,'diamond','MarkerSize',7);
+plot(tspan,trace);
+plot(tspan,eln_trace,'--');
+% plot(tspan,lw_trace,'--');
 xlim([0,size(y_obs,1)+1])
 ylim([0.5,4.5]); yticks([1 2 3 4 5])
 title('HMM - Long Sequence','Interpreter','latex');
