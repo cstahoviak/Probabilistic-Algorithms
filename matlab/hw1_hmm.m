@@ -10,11 +10,11 @@ close ALL;
 %% Load Data
 
 load('nominal_hmm_params.mat')
-trans_prob = pxk_xkm1;
-obs_prob = pyk_xk;
+trans_prob = pxk_xkm1;  % column-stochastic
+obs_prob = pyk_xk;      % column-stochastic
 
-load('nominal_hmm_short_log.mat')
-% load('nominal_hmm_long_log.mat')
+% load('nominal_hmm_short_log.mat')
+load('nominal_hmm_long_log.mat')
 
 %% The Forward-Backward Algorithm
 
@@ -31,15 +31,20 @@ fprintf('\nFB data log-likelihood = %f\n\n', data_ll_fb);
 
 %% Mann Extended-Logarithm Forward-Backward Algorithm
 
+% use Mann notation
+trans_prob = trans_prob';   % row-stochastic (Rabiner/Mann convention)
+
 %%% Mann log-weighted (numerically-stable) forward-backward alg.
 eln_alpha = forward_eln( px0, trans_prob, obs_prob, y_obs );
 eln_beta = backward_eln( trans_prob, obs_prob, y_obs );
 
-% get the posterior distribution (exact inference)
-eln_posterior = posterior_elnfb( eln_alpha(2:end,:)', eln_beta' );
+% get the log-posterior distribution (exact inference)
+[ eln_gamma, gamma ] = posterior_elnfb( eln_alpha(2:end,:)', eln_beta' );
+eln_posterior = gamma;  % true posterior, not log-posterior
 
 % calculate data log-likelihood for ext-log forward-backward alg.
-data_ll_elnfb = nansum(eln_alpha(end,:));
+nonNaN_idx = ~isnan(eln_alpha(end,:));
+data_ll_elnfb = eln(sum(eexp(eln_alpha(end,nonNaN_idx))));
 fprintf('\nExt-Log FB data log-likelihood = %f\n\n', data_ll_elnfb);
 
 %% Liklihood-Weighted Sampling
@@ -51,7 +56,7 @@ Ns = 10000;         % number of Monte Carlo sample sequences
 % corresponding sequence weights
 T = size(y_obs,1);
 [ lw_samples, weights ] = lw_sampling( Ns, px0, trans_prob, ...
-                            obs_prob, y_obs);
+                            obs_prob, y_obs );
                          
 % get likelihood-weighted approximate inference posterior
 lw_posterior = lw_inference( n, lw_samples, weights );

@@ -2,8 +2,8 @@ function [ eln_alpha ] = forward_eln( px0, trans_prob, obs_prob, y_obs )
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
 
-% use Mann notation
-trans_prob = trans_prob';
+% NOTE: in accordance with Rabiner/Mann notation, the trans_prob matrix
+% must be a row-stochastic matrix  
 
 n = size(px0,1);
 T = size(y_obs,1);

@@ -166,6 +166,8 @@ For Monte Carlo samples sizes $N_s$ of 100, 1000 and 10,000 the following result
 
 Implement the forward-backward algorithm for the \texttt{nominal\_hmm\_long\_log.txt} sequence. Use the resulting posterior $P(x_k \vert y_{1:T})$ to classify the most likely state $x_k$ for each timestep $k=1:T$ (plot these as a time trace). In the state trace shown below, the states predicted by the standard Forward-Backward algorithm are compared against the states predicted by the Mann Extended-Logarithm Forward Backward algorithm.
 
+To reproduce the results 
+
 \begin{figure}[H]
 	\begin{center}  
 		\includegraphics[scale=0.53]{p3_state_trace.eps}  
@@ -174,10 +176,16 @@ Implement the forward-backward algorithm for the \texttt{nominal\_hmm\_long\_log
 	\end{center}  
 \end{figure}
 
-Additionally, the data log-likelihood $\log P(y_{1:T})$, can be reported as follows:
+Additionally, the data log-likelihood $\log P(y_{1:T})$, can be reported as follows
 
 \begin{equation}
 	\log P(y_{1:T}) = \log \sum_{x_T} \alpha(x_T) = -84.743390
+\end{equation}
+
+and for the Mann extended-log implementation:
+
+\begin{equation}
+\log P(y_{1:T}) = \text{eln}\left( \sum_{x_T} \text{eexp}\left(eln\alpha_T\right) \right) = -84.743390
 \end{equation}
 
 \newpage

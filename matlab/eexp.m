@@ -4,7 +4,7 @@ function [ out ] = eexp( x )
 
 % if x == 'LOGZERO'
 if isnan(x)
-    out = 0;
+    out = zeros(size(x,1),size(x,2));
 else
     out = exp(x);
 end

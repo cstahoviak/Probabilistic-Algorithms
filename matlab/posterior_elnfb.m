@@ -1,4 +1,4 @@
-function [ eln_post ] = posterior_elnfb( eln_alpha, eln_beta )
+function [ eln_gamma, gamma ] = posterior_elnfb( eln_alpha, eln_beta )
 %UNTITLED4 Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -9,6 +9,7 @@ else
     n = size(eln_alpha,1);
     T = size(eln_alpha,2);
     
+    % initialization
     eln_gamma = zeros(n,T);     % log-posterior
     gamma = zeros(n,T);         % true posterior
     
@@ -24,12 +25,14 @@ else
             gamma(i,k) = eexp(eln_gamma(i,k));
         end
         % sanity check
-        fprintf('1 - sum(gamma(:,%d)) = %e\n', k, 1-sum(gamma(:,k))) 
+        fprintf('1 - sum(gamma(:,%d)) = %e\n', k, ...
+            1-nansum(eexp(eln_gamma(:,k))))
     end
 end
 
 % return a Txn matrix
-eln_post = gamma';
+eln_gamma = eln_gamma';
+gamma = gamma';
 
 end
 
