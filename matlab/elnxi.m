@@ -1,4 +1,4 @@
-function [ eln_xi ] = elnxi( eln_alpha, eln_beta, trans_prob, obs_prob, y_obs )
+function [ eln_xi, xi ] = elnxi( eln_alpha, eln_beta, trans_prob, obs_prob, y_obs )
 %ELNXI - Computes the log of xi(i,j,k)
 %   xi(i,j,k) is the probability of being in state x_i and timestep k, and
 %   state x_j at timestep k+1 given a model lambda and observation sequence
@@ -12,6 +12,7 @@ T = size(y_obs,1);
 
 % initialization
 eln_xi = zeros(n,n,T-1);
+xi = zeros(n,n,T-1);
 
 for k=1:(T-1)
     normalizer = NaN;
@@ -27,6 +28,7 @@ for k=1:(T-1)
     for i=1:n
         for j=1:n
             eln_xi(i,j,k) = elnprod( eln_xi(i,j,k), -normalizer);
+            xi(i,j,k) = eexp(eln_xi(i,j,k));
         end
     end
 end

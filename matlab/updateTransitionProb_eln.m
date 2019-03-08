@@ -1,4 +1,4 @@
-function [ trans_prob_hat ] = estimateTransitionProb( eln_gamma, eln_xi )
+function [ trans_prob_hat ] = updateTransitionProb_eln( eln_gamma, eln_xi )
 %UNTITLED3 Summary of this function goes here
 %   Detailed explanation goes here
 

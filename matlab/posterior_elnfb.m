@@ -25,14 +25,14 @@ else
             gamma(i,k) = eexp(eln_gamma(i,k));
         end
         % sanity check
-        fprintf('1 - sum(gamma(:,%d)) = %e\n', k, ...
-            1-nansum(eexp(eln_gamma(:,k))))
+%         fprintf('1 - sum(gamma(:,%d)) = %e\n', k, ...
+%             1-nansum(eexp(eln_gamma(:,k))))
     end
 end
 
 % return a Txn matrix
-eln_gamma = eln_gamma';
-gamma = gamma';
+% eln_gamma = eln_gamma';
+% gamma = gamma';
 
 end
 

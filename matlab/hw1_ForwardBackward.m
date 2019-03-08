@@ -1,6 +1,7 @@
 %% Header
-
-% Author: Carl Stahoviak
+    
+% Filename:     hw1_ForwardBackward.m
+% Author:       Carl Stahoviak
 % Date Created:
 
 clc;
@@ -39,12 +40,13 @@ eln_alpha = forward_eln( px0, trans_prob, obs_prob, y_obs );
 eln_beta = backward_eln( trans_prob, obs_prob, y_obs );
 
 % get the log-posterior distribution (exact inference)
-[ eln_gamma, gamma ] = posterior_elnfb( eln_alpha(2:end,:)', eln_beta' );
+[ eln_gamma, gamma ] = posterior_elnfb( eln_alpha(:,2:end), ...
+    eln_beta(:,2:end) );
 eln_posterior = gamma;  % true posterior, not log-posterior
 
 % calculate data log-likelihood for ext-log forward-backward alg.
-nonNaN_idx = ~isnan(eln_alpha(end,:));
-data_ll_elnfb = eln(sum(eexp(eln_alpha(end,nonNaN_idx))));
+nonNaN_idx = ~isnan(eln_alpha(:,end));
+data_ll_elnfb = eln(sum(eexp(eln_alpha(nonNaN_idx,end))));
 fprintf('\nExt-Log FB data log-likelihood = %f\n\n', data_ll_elnfb);
 
 %% Liklihood-Weighted Sampling
@@ -69,7 +71,7 @@ tspan = linspace(1,size(y_obs,1),5000)';
 % get continuous state trace
 % NOTE: assumes posterior to be an nxT matrix
 [ state, trace ] = getStateTrace( tspan, posterior' );
-[ eln_state, eln_trace ] = getStateTrace( tspan, eln_posterior' );
+[ eln_state, eln_trace ] = getStateTrace( tspan, eln_posterior );
 [ lw_state, lw_trace ] = getStateTrace( tspan, lw_posterior' );
 
 figure(1)

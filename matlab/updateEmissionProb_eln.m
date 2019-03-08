@@ -1,4 +1,4 @@
-function [ obs_prob_hat ] = estimateEmissionProb( p, eln_gamma, eln_xi, y_obs )
+function [ obs_prob_hat ] = updateEmissionProb_eln( p, eln_gamma, eln_xi, y_obs )
 %UNTITLED4 Summary of this function goes here
 %   Detailed explanation goes here
 
