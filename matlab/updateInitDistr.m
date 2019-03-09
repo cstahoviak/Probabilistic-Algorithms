@@ -13,7 +13,7 @@ for i=1:n
 end
 
 % normalize
-init_distr_hat = init_distr_hat./sum(init_distr_hat);
+% init_distr_hat = init_distr_hat./sum(init_distr_hat);
 
 end
 

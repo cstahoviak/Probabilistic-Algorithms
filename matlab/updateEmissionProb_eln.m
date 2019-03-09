@@ -1,25 +1,36 @@
-function [ obs_prob_hat ] = updateEmissionProb_eln( p, eln_gamma, eln_xi, y_obs )
-%UNTITLED4 Summary of this function goes here
+function [ obs_prob_hat ] = updateEmissionProb_eln( p, eln_gamma, y_obs )
+%UNTITLED5 Summary of this function goes here
 %   Detailed explanation goes here
 
 n = size(eln_gamma,1);
-T = size(eln_gamma,2);
+T = size(eln_gamma,2) - 1;
+D = size(y_obs,2);
 
-% initialization
 obs_prob_hat = zeros(p,n);
 
-for i=1:p
-    for j=1:n
+% get emission probabilty estimate
+for j=1:p
+    for i=1:n
         numerator = NaN;
         denominator = NaN;
-        
-        for k=1:T
-            if y_obs(k) == i
-                numerator = elnsum(numerator, eln_gamma(j,k));
-            end
-            denominator = elnsum(denominator, eln_gamma(j,k));
-        end
-        obs_prob_hat(i,j) = eexp(elnprod(numerator, -denominator));
-    end
-end
 
+        for d=1:D
+            for k=2:T+1
+%                 disp(k)
+                % symbol j observed at time step k in data log d
+                if y_obs(k-1,d) == j
+                    numerator = elnsum(numerator, eln_gamma(i,k,d));
+                    if j == 15
+%                         disp('HERE')
+%                         disp([j, k, d])
+                    end
+                end
+                denominator = elnsum(denominator, eln_gamma(i,k,d));
+            end % end k
+        end % end d
+
+        obs_prob_hat(j,i) = eexp(elnprod(numerator, -denominator));
+    end % end i
+end % end j
+
+end

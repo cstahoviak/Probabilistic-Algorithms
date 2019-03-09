@@ -26,7 +26,6 @@ end
 return;
 
 
-
 % initialization
 eln_beta = zeros(n,T);
 
@@ -41,8 +40,5 @@ for k=(T-1):-1:1
         eln_beta(i,k) = logbeta;
     end
 end
-
-% return a Txn matrix
-% eln_beta = eln_beta';
 
 end

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.6980) (preloaded format=pdflatex 2019.2.26)  1 MAR 2019 16:22
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.6980) (preloaded format=pdflatex 2019.2.26)  8 MAR 2019 14:38
 entering extended mode
 **./ASEN_6519_HW1_Stahoviak.tex
 (ASEN_6519_HW1_Stahoviak.tex
@@ -1271,97 +1271,103 @@ Overfull \hbox (19.12776pt too wide) in paragraph at lines 164--164
 ithm 
  []
 
-Package epstopdf Info: Source file: <p3_state_trace.eps>
-(epstopdf)                    date: 2019-02-26 16:04:10
-(epstopdf)                    size: 312155 bytes
-(epstopdf)             Output file: <p3_state_trace-eps-converted-to.pdf>
-(epstopdf)                    date: 2019-02-26 16:04:17
-(epstopdf)                    size: 98477 bytes
-(epstopdf)             Command: <epstopdf --outfile=p3_state_trace-eps-converte
-d-to.pdf p3_state_trace.eps>
-(epstopdf)             \includegraphics on input line 171.
+Package epstopdf Info: Source file: <p3_state_trace_2.eps>
+(epstopdf)                    date: 2019-03-08 14:10:18
+(epstopdf)                    size: 311983 bytes
+(epstopdf)             Output file: <p3_state_trace_2-eps-converted-to.pdf>
+(epstopdf)                    date: 2019-03-08 14:20:00
+(epstopdf)                    size: 97918 bytes
+(epstopdf)             Command: <epstopdf --outfile=p3_state_trace_2-eps-conver
+ted-to.pdf p3_state_trace_2.eps>
+(epstopdf)             \includegraphics on input line 173.
 Package epstopdf Info: Output file is already uptodate.
 
 
-pdfTeX warning: pdflatex (file ./p3_state_trace-eps-converted-to.pdf): PDF incl
-usion: found PDF version <1.7>, but at most version <1.5> allowed
-<p3_state_trace-eps-converted-to.pdf, id=84, 938.50626pt x 316.18124pt>
-File: p3_state_trace-eps-converted-to.pdf Graphic file (type pdf)
-<use p3_state_trace-eps-converted-to.pdf>
-Package pdftex.def Info: p3_state_trace-eps-converted-to.pdf  used on input lin
-e 171.
-(pdftex.def)             Requested size: 497.40594pt x 167.57526pt.
+pdfTeX warning: pdflatex (file ./p3_state_trace_2-eps-converted-to.pdf): PDF in
+clusion: found PDF version <1.7>, but at most version <1.5> allowed
+<p3_state_trace_2-eps-converted-to.pdf, id=84, 942.52126pt x 316.18124pt>
+File: p3_state_trace_2-eps-converted-to.pdf Graphic file (type pdf)
+<use p3_state_trace_2-eps-converted-to.pdf>
+Package pdftex.def Info: p3_state_trace_2-eps-converted-to.pdf  used on input l
+ine 173.
+(pdftex.def)             Requested size: 499.53389pt x 167.57526pt.
 
-Overfull \hbox (27.65092pt too wide) in paragraph at lines 171--172
+Overfull \hbox (29.77887pt too wide) in paragraph at lines 173--174
  [] 
  []
 
-[4 <./p2_state_trace_10000_1-eps-converted-to.pdf> <./p3_state_trace-eps-conver
-ted-to.pdf>] [5]
-Underfull \hbox (badness 10000) in paragraph at lines 246--247
+[4 <./p2_state_trace_10000_1-eps-converted-to.pdf> <./p3_state_trace_2-eps-conv
+erted-to.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 197--198
 
  []
 
-LaTeX Font Info:    Try loading font information for TS1+pcr on input line 261.
+[5]
+Underfull \hbox (badness 10000) in paragraph at lines 255--256
+
+ []
+
+LaTeX Font Info:    Try loading font information for TS1+pcr on input line 271.
 
 (/home/carl/.miktex/texmfs/install/tex/latex/psnfss/ts1pcr.fd
 File: ts1pcr.fd 2001/06/04 font definitions for TS1/pcr.
 )
-LaTeX Font Info:    Try loading font information for OMS+pcr on input line 280.
+LaTeX Font Info:    Try loading font information for OMS+pcr on input line 289.
 
 
 (/home/carl/.miktex/texmfs/install/tex/latex/psnfss/omspcr.fd
 File: omspcr.fd 
 )
 LaTeX Font Info:    Font shape `OMS/pcr/m/n' in size <8> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 280.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 289.
  [6] [7] [8]
-[9] [10]
-LaTeX Font Info:    Try loading font information for OML+pcr on input line 625.
+[9] [10] [11]
+LaTeX Font Info:    Try loading font information for OML+pcr on input line 637.
 
  (/home/carl/.miktex/texmfs/install/tex/latex/psnfss/omlpcr.fd
 File: omlpcr.fd 
 )
 LaTeX Font Info:    Font shape `OML/pcr/m/n' in size <8> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 625.
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 637.
 
-[11] [12] (ASEN_6519_HW1_Stahoviak.aux)
+[12] [13] (ASEN_6519_HW1_Stahoviak.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 27496 strings out of 494865
- 526354 string characters out of 3178377
- 732283 words of memory out of 3000000
- 30745 multiletter control sequences out of 15000+200000
- 541947 words of font info for 62 fonts, out of 3000000 for 9000
+ 27505 strings out of 494865
+ 526474 string characters out of 3178377
+ 741283 words of memory out of 3000000
+ 30750 multiletter control sequences out of 15000+200000
+ 543187 words of font info for 66 fonts, out of 3000000 for 9000
  0 hyphenation exceptions out of 8191
  62i,11n,92p,572b,1682s stack positions out of 5000i,500n,10000p,200000b,50000s
 {/home/carl/.miktex/texmfs/install/fonts/enc/dvips/base/8r.enc}</home/carl/.m
 iktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmbx10.pfb></home/carl/.mik
 tex/texmfs/install/fonts/type1/public/amsfonts/cm/cmbx12.pfb></home/carl/.mikte
-x/texmfs/install/fonts/type1/public/amsfonts/cm/cmex10.pfb></home/carl/.miktex/
-texmfs/install/fonts/type1/public/amsfonts/cm/cmmi10.pfb></home/carl/.miktex/te
-xmfs/install/fonts/type1/public/amsfonts/cm/cmmi5.pfb></home/carl/.miktex/texmf
-s/install/fonts/type1/public/amsfonts/cm/cmmi7.pfb></home/carl/.miktex/texmfs/i
-nstall/fonts/type1/public/amsfonts/cm/cmmi8.pfb></home/carl/.miktex/texmfs/inst
-all/fonts/type1/public/amsfonts/cm/cmr10.pfb></home/carl/.miktex/texmfs/install
-/fonts/type1/public/amsfonts/cm/cmr12.pfb></home/carl/.miktex/texmfs/install/fo
-nts/type1/public/amsfonts/cm/cmr17.pfb></home/carl/.miktex/texmfs/install/fonts
-/type1/public/amsfonts/cm/cmr5.pfb></home/carl/.miktex/texmfs/install/fonts/typ
-e1/public/amsfonts/cm/cmr7.pfb></home/carl/.miktex/texmfs/install/fonts/type1/p
-ublic/amsfonts/cm/cmr9.pfb></home/carl/.miktex/texmfs/install/fonts/type1/publi
-c/amsfonts/cm/cmsy10.pfb></home/carl/.miktex/texmfs/install/fonts/type1/public/
-amsfonts/cm/cmsy5.pfb></home/carl/.miktex/texmfs/install/fonts/type1/public/ams
-fonts/cm/cmsy7.pfb></home/carl/.miktex/texmfs/install/fonts/type1/public/amsfon
-ts/cm/cmsy8.pfb></home/carl/.miktex/texmfs/install/fonts/type1/public/amsfonts/
-cm/cmti10.pfb></home/carl/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm
-/cmtt10.pfb></home/carl/.miktex/texmfs/install/fonts/type1/urw/courier/ucrr8a.p
-fb>
-Output written on ASEN_6519_HW1_Stahoviak.pdf (12 pages, 806690 bytes).
+x/texmfs/install/fonts/type1/public/amsfonts/cm/cmbx7.pfb></home/carl/.miktex/t
+exmfs/install/fonts/type1/public/amsfonts/cm/cmex10.pfb></home/carl/.miktex/tex
+mfs/install/fonts/type1/public/amsfonts/cm/cmmi10.pfb></home/carl/.miktex/texmf
+s/install/fonts/type1/public/amsfonts/cm/cmmi5.pfb></home/carl/.miktex/texmfs/i
+nstall/fonts/type1/public/amsfonts/cm/cmmi7.pfb></home/carl/.miktex/texmfs/inst
+all/fonts/type1/public/amsfonts/cm/cmmi8.pfb></home/carl/.miktex/texmfs/install
+/fonts/type1/public/amsfonts/cm/cmr10.pfb></home/carl/.miktex/texmfs/install/fo
+nts/type1/public/amsfonts/cm/cmr12.pfb></home/carl/.miktex/texmfs/install/fonts
+/type1/public/amsfonts/cm/cmr17.pfb></home/carl/.miktex/texmfs/install/fonts/ty
+pe1/public/amsfonts/cm/cmr5.pfb></home/carl/.miktex/texmfs/install/fonts/type1/
+public/amsfonts/cm/cmr7.pfb></home/carl/.miktex/texmfs/install/fonts/type1/publ
+ic/amsfonts/cm/cmr9.pfb></home/carl/.miktex/texmfs/install/fonts/type1/public/a
+msfonts/cm/cmsy10.pfb></home/carl/.miktex/texmfs/install/fonts/type1/public/ams
+fonts/cm/cmsy5.pfb></home/carl/.miktex/texmfs/install/fonts/type1/public/amsfon
+ts/cm/cmsy7.pfb></home/carl/.miktex/texmfs/install/fonts/type1/public/amsfonts/
+cm/cmsy8.pfb></home/carl/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/
+cmti10.pfb></home/carl/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cm
+tt10.pfb></home/carl/.miktex/texmfs/install/fonts/type1/urw/courier/ucrr8a.pfb>
+
+Output written on ASEN_6519_HW1_Stahoviak.pdf (13 pages, 822184 bytes).
 PDF statistics:
- 191 PDF objects out of 1000 (max. 8388607)
+ 199 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  144 words of extra memory for PDF output out of 10000 (max. 10000000)
 

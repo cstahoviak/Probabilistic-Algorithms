@@ -1,13 +1,22 @@
-function [ init_distr ] = updateInitDistr_eln( eln_gamma )
-%UNTITLED Summary of this function goes here
-%   Copmute pi_i, the estimated probability of starting in state x_i
+function [ init_distr_hat ] = updateInitDistr_eln( eln_gamma )
+%UNTITLED3 Summary of this function goes here
+%   Detailed explanation goes here
 
 n = size(eln_gamma,1);
-init_distr = zeros(n,1);
+D = size(eln_gamma,3);
 
-for i=1:n
-    init_distr(i,1) = eexp(eln_gamma(i,1));
+init_distr_hat = zeros(n,1);
+
+% get initial distribution estimate
+for d=1:D 
+    for i=1:n
+        init_distr_hat(i,1) = init_distr_hat(i,1) + eexp(eln_gamma(i,1,d));
+    end
 end
+    
+init_distr_hat = init_distr_hat/D;
+
+% normalize
+% init_distr_hat = init_distr_hat./sum(init_distr_hat);
 
 end
-

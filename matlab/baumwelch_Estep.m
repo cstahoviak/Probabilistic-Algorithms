@@ -12,7 +12,10 @@ eln_beta = backward_eln( trans_prob, obs_prob, y_obs );
 [ eln_gamma, gamma ] = posterior_elnfb( eln_alpha, eln_beta );
 
 % get log of probability xi(i,j,k)
-[ eln_xi, xi ] = elnxi( eln_alpha(:,2:end), eln_beta(:,2:end), ...
+% [ eln_xi, xi ] = elnxi( eln_alpha(:,2:end), eln_beta(:,2:end), ...
+%     trans_prob, obs_prob, y_obs );
+
+[ eln_xi, xi ] = elnxi( eln_alpha, eln_beta, ...
     trans_prob, obs_prob, y_obs );
 
 end

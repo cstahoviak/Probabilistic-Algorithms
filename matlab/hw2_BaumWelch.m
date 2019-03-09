@@ -28,35 +28,17 @@ p = size(pyk_xk,1);     % number of unique emmision symbols
 N_logs = D;
 
 % number of times M-step will be done
-N_mstep = 3;
+N_mstep = 100;
 
 % initialize CPTs
 trans_prob = zeros(n,n,N_mstep+1);      % row-stochastic
 obs_prob   = zeros(p,n,N_mstep+1);      % column-stochastic (is this correct?)
 init_distr = zeros(n,N_mstep+1);        % column-stochastic
 
-% initialize CPTs to truth values (probably don't do this..)
-trans_prob(:,:,1) = pxk_xkm1';          % row-stochastic
-obs_prob(:,:,1)   = pyk_xk;
-init_distr(:,1)   = px0;
-
-% "informed" uniform initialization
-% initialize CPTs WITH knowledge of where zeros exist in the tables
-% init_distr(:,1)   = (1/n)*ones(n,1);
-% 
-% trans_prob(:,:,1) = [1/3 0   1/3 1/3;
-%                      1/4 1/4 1/4 1/4;
-%                      0   1/3 1/3 1/3;
-%                      1/2 0   0   1/2];
-% 
-% obs_prob(:,:,1) = [(1/10)*ones(10,1), zeros(10,2), (1/10)*ones(10,1);
-%                   zeros(4,1), (1/4)*ones(4,1), (1/5)*ones(4,1), zeros(4,1);
-%                   0,          0,               1/5,             0];
-
-% "un-informed" uniform initialization
-% initialize CPTs WITHOUT knowledge of where zeros exist in the tables
-% trans_prob(:,:,1) = (1/n)*ones(n);
-% obs_prob(:,:,1)   = (1/p)*ones(p,n);
+% initialize Conditional Probability Tables (CPTs)
+type = 'informed';
+[ init_distr(:,1), trans_prob(:,:,1), obs_prob(:,:,1) ] = initCPTs( ...
+    pxk_xkm1', pyk_xk, px0, type);
 
 
 %% Baum-Welch - Attempt 2
@@ -71,12 +53,12 @@ init_distr(:,1)   = px0;
 for s=1:N_mstep     % number of times M-step will be done
     
     % init variables
-    eln_alpha = zeros(n,T+1,D);     % T+1 columns because alpha(0) is computed
-    eln_beta  = zeros(n,T+1,D);
-    eln_gamma = zeros(n,T+1,D);     % log-posterior
-    gamma     = zeros(n,T+1,D);     % true posterior
-    eln_xi    = zeros(n,n,T-1,D);   % log of probability xi(i,j,k)
-    xi        = zeros(n,n,T-1,D);
+    eln_alpha = zeros(n,T+1,N_logs);    % T+1 columns because alpha(0) is computed
+    eln_beta  = zeros(n,T+1,N_logs);
+    eln_gamma = zeros(n,T+1,N_logs);    % log-posterior
+    gamma     = zeros(n,T+1,N_logs);    % true posterior
+    eln_xi    = zeros(n,n,T,N_logs);    % log of probability xi(i,j,k)
+    xi        = zeros(n,n,T,N_logs);
     
     for d=1:N_logs       % iterate over D number of data logs
         obs_seq = y_obs(:,d);
@@ -90,7 +72,7 @@ for s=1:N_mstep     % number of times M-step will be done
     
     % do M-step given D iterations of the E-step
     [init_distr(:,s+1), trans_prob(:,:,s+1), obs_prob(:,:,s+1) ] = ...
-        baumwelch_Mstep( p, gamma(:,:,d), xi(:,:,:,d), y_obs);
+        baumwelch_Mstep( p, eln_gamma, gamma, eln_xi, xi, y_obs);
     
     fprintf('%d) Estimated Initial Distribution\n', s)
     disp(init_distr(:,s+1));
@@ -107,7 +89,6 @@ for s=1:N_mstep     % number of times M-step will be done
     disp(1-sum(obs_prob(:,:,s+1),1));
     
 end
-
 
 return;
 

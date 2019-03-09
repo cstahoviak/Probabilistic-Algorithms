@@ -1,28 +1,29 @@
-function [ trans_prob_hat ] = updateTransitionProb_eln( eln_gamma, eln_xi )
-%UNTITLED3 Summary of this function goes here
+function [ trans_prob_hat ] = updateTransitionProb_eln( eln_gamma, eln_xi)
+%UNTITLED4 Summary of this function goes here
 %   Detailed explanation goes here
 
-% NOTE: in accordance with Rabiner/Mann notation, the estimated trans_prob
-% matrix will be a row-stochastic matrix
-
 n = size(eln_gamma,1);
-T = size(eln_gamma,2);
+T = size(eln_gamma,2) - 1;
+D = size(eln_gamma,3);
 
-% initilization
 trans_prob_hat = zeros(n,n);
 
+% get transition probability estimate
 for i=1:n
     for j=1:n
         numerator = NaN;
         denominator = NaN;
-        
-        for k=1:(T-1)
-            numerator = elnsum( numerator, eln_xi(i,j,k) );
-            denominator = elnsum( denominator, eln_gamma(i,k) );
-        end
+
+        for d=1:D
+            for k=2:T+1
+%                 disp([d, k, xi(i,j,k-1,d)])
+                numerator = elnsum(numerator, eln_xi(i,j,k-1,d));
+                denominator = elnsum(denominator, eln_gamma(i,k-1,d));
+            end % end k
+        end % end d
+
         trans_prob_hat(i,j) = eexp(elnprod(numerator, -denominator));
-    end
-end
+    end % end j  
+end % end i
 
 end
-

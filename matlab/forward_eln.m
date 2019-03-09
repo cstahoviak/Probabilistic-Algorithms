@@ -28,7 +28,4 @@ for k=2:T+1
     end
 end
 
-% return a Txn matrix
-% eln_alpha = eln_alpha';
-
 end

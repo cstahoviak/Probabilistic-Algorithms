@@ -11,6 +11,31 @@ n = size(trans_prob,1);
 T = size(y_obs,1);
 
 % initialization
+eln_xi = zeros(n,n,T);
+xi = zeros(n,n,T);
+
+for k=1:T
+    normalizer = NaN;
+    for i=1:n
+        for j=1:n
+            eln_xi(i,j,k) = elnprod( eln_alpha(i,k), ...
+                elnprod( eln(trans_prob(i,j)), ...
+                elnprod( eln(obs_prob(y_obs(k),j)), eln_beta(j,k+1) )));
+            normalizer = elnsum( normalizer, eln_xi(i,j,k) );
+        end
+    end
+    
+    for i=1:n
+        for j=1:n
+            eln_xi(i,j,k) = elnprod( eln_xi(i,j,k), -normalizer);
+            xi(i,j,k) = eexp(eln_xi(i,j,k));
+        end
+    end
+end
+
+return;
+
+% initialization
 eln_xi = zeros(n,n,T-1);
 xi = zeros(n,n,T-1);
 

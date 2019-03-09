@@ -30,9 +30,5 @@ else
     end
 end
 
-% return a Txn matrix
-% eln_gamma = eln_gamma';
-% gamma = gamma';
-
 end
 

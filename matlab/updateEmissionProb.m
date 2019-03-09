@@ -1,9 +1,9 @@
-function [ obs_prob_hat] = upsateEmissionProb( p, gamma, y_obs )
+function [ obs_prob_hat] = updateEmissionProb( p, gamma, y_obs )
 %UNTITLED5 Summary of this function goes here
 %   Detailed explanation goes here
 
 n = size(gamma,1);
-T = size(gamma,2);
+T = size(gamma,2) - 1;
 D = size(gamma,3);
 
 obs_prob_hat = zeros(p,n);
@@ -15,9 +15,9 @@ for j=1:p
         denominator = 0;
 
         for d=1:D
-            for k=1:T
+            for k=2:T+1
                 % symbol j observed at time step k in data log d
-                if y_obs(k,d) == j
+                if y_obs(k-1,d) == j
                     numerator = numerator + gamma(i,k,d);
                 end
                 denominator = denominator + gamma(i,k,d);

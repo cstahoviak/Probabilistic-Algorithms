@@ -3,7 +3,7 @@ function [ trans_prob_hat ] = updateTransitionProb( gamma, xi)
 %   Detailed explanation goes here
 
 n = size(gamma,1);
-T = size(gamma,2);
+T = size(gamma,2) - 1;
 D = size(gamma,3);
 
 trans_prob_hat = zeros(n,n);
@@ -15,7 +15,7 @@ for i=1:n
         denominator = 0;
 
         for d=1:D
-            for k=2:T
+            for k=2:T+1     % changed to T+1
 %                 disp([d, k, xi(i,j,k-1,d)])
                 numerator = numerator + xi(i,j,k-1,d);
                 denominator = denominator + gamma(i,k-1,d);
