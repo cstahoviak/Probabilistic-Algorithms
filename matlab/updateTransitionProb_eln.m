@@ -16,7 +16,7 @@ for i=1:n
 
         for d=1:D
             for k=2:T+1
-%                 disp([d, k, xi(i,j,k-1,d)])
+%                 disp([d, k, eln_xi(i,j,k-1,d)])
                 numerator = elnsum(numerator, eln_xi(i,j,k-1,d));
                 denominator = elnsum(denominator, eln_gamma(i,k-1,d));
             end % end k

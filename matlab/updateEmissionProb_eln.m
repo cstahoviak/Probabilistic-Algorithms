@@ -4,7 +4,7 @@ function [ obs_prob_hat ] = updateEmissionProb_eln( p, eln_gamma, y_obs )
 
 n = size(eln_gamma,1);
 T = size(eln_gamma,2) - 1;
-D = size(y_obs,2);
+D = size(eln_gamma,3);
 
 obs_prob_hat = zeros(p,n);
 
@@ -20,10 +20,6 @@ for j=1:p
                 % symbol j observed at time step k in data log d
                 if y_obs(k-1,d) == j
                     numerator = elnsum(numerator, eln_gamma(i,k,d));
-                    if j == 15
-%                         disp('HERE')
-%                         disp([j, k, d])
-                    end
                 end
                 denominator = elnsum(denominator, eln_gamma(i,k,d));
             end % end k

@@ -166,8 +166,6 @@ For Monte Carlo samples sizes $N_s$ of 100, 1000 and 10,000 the following result
 
 Implement the forward-backward algorithm for the \texttt{nominal\_hmm\_long\_log.txt} sequence. Use the resulting posterior $P(x_k \vert y_{1:T})$ to classify the most likely state $x_k$ for each timestep $k=1:T$ (plot these as a time trace). In the state trace shown below, the states predicted by the standard Forward-Backward algorithm are compared against the states predicted by the Mann Extended-Logarithm Forward Backward algorithm.
 
-To reproduce the results 
-
 \begin{figure}[H]
 	\begin{center}  
 		\includegraphics[scale=0.53]{p3_state_trace_2.eps}  
@@ -393,7 +391,6 @@ alpha2 = alpha2';
 end
 \end{lstlisting}
 
-\newpage
 \textbf{backward.m} - backward pass of the forward-backward algorithm
 \begin{lstlisting}
 function [ beta, beta2 ] = backward( trans_prob, obs_prob, y_obs )
@@ -459,7 +456,6 @@ else
 	posterior = posterior';
 end
 \end{lstlisting}
-\newpage
 
 \textbf{forward\_eln.m} - extended-logarithm forward pass
 \begin{lstlisting}

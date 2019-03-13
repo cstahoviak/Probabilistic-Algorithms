@@ -20,9 +20,9 @@ elseif strcmp(type, 'informed')
     init_distr = (1/n)*ones(n,1);
 
     trans_prob = [1/3 0   1/3 1/3;
-                         1/4 1/4 1/4 1/4;
-                         0   1/3 1/3 1/3;
-                         1/2 0   0   1/2];
+                  1/4 1/4 1/4 1/4;
+                  0   1/3 1/3 1/3;
+                  1/2 0   0   1/2];
 
     obs_prob   = [(1/10)*ones(10,1), zeros(10,2), (1/10)*ones(10,1);
                   zeros(4,1), (1/4)*ones(4,1), (1/5)*ones(4,1), zeros(4,1);
@@ -42,7 +42,7 @@ elseif strcmp(type, 'rand')
     trans_prob = rand(n);
     for i=1:n
         % normalize rows
-        trans_prob(i,1) = trans_prob(i,1)./sum(trans_prob(i,1));
+        trans_prob(i,:) = trans_prob(i,:)./sum(trans_prob(i,:));
     end
     
     obs_prob = rand(p,n);
@@ -54,7 +54,5 @@ elseif strcmp(type, 'rand')
 else
     error('Improperly specified initialization type')
 end
-   
     
 end
-

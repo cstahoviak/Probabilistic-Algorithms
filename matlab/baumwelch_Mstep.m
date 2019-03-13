@@ -12,9 +12,10 @@ else
 %     trans_prob_hat = updateTransitionProb( gamma, xi);
 %     obs_prob_hat   = updateEmissionProb( p, gamma, y_obs );
     
-    % Implement extended-log verisons of the paramter updates:
+    % Implement extended-log versions of the parameter updates
+    % from the Berkeley paper:
     % WORKING!! - Now need to update functions above to achieve similar
-    % reuslts!
+    % results!
     init_distr_hat = updateInitDistr_eln( eln_gamma );
     trans_prob_hat = updateTransitionProb_eln( eln_gamma, eln_xi);
     obs_prob_hat   = updateEmissionProb_eln( p, eln_gamma, y_obs );
