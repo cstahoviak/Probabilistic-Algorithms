@@ -1,0 +1,18 @@
+\begin{thebibliography}{1}
+
+\bibitem{MLESAC}
+P.~Torr and A.~Zisserman, ``Mlesac: A new robust estimator with application to
+  estimating image geometry,'' {\em Computer Vision and Image Understanding},
+  vol.~78, no.~1, pp.~138 -- 156, 2000.
+
+\bibitem{ODR_1987}
+P.~Boggs, R.~Byrd, and R.~Schnabel, ``A stable and efficient algorithm for
+  nonlinear orthogonal distance regression,'' {\em SIAM Journal on Scientific
+  and Statistical Computing}, vol.~8, no.~6, pp.~1052--1078, 1987.
+
+\bibitem{ODRPACK95}
+J.~W. Zwolak, P.~T. Boggs, and L.~T. Watson, ``Algorithm 869: Odrpack95: A
+  weighted orthogonal distance regression code with bound constraints,'' {\em
+  ACM Trans. Math. Softw.}, vol.~33, p.~27, 2004.
+
+\end{thebibliography}

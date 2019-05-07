@@ -18,7 +18,9 @@ y_obs = ThreeClass_log;
 
 colors = [0,      0.4470, 0.7410;
           0.9290, 0.6940, 0.1250;
-          0.6350, 0.0780, 0.1840];
+          0.6350, 0.0780, 0.1840;
+          0.4940, 0.1840, 0.5560;
+          0.4660, 0.6740, 0.1880];
 
 figure(1);
 ax(1) = gca;
@@ -48,7 +50,7 @@ n = 2;      % dimensionality of data
 M = 3;      % number of sub-distributions within label j      
 
 % number of times EM algorithm will be done
-N_iter = 150; 
+N_iter = 100; 
 
 X = y_obs(:,2:3)';
 N_points = size(X,2);
@@ -61,6 +63,10 @@ r       = zeros(M,N_points,N_iter);
 labels  = zeros(N_points,N_iter);
 
 % get intial parameter estimates
+% NOTE: interesting initialization given by:
+% mu = [3.9158   -5.4860   -4.3932;
+%      -1.8518   15.2275    6.5673];
+
 lower = [min(X(1,:)), min(X(2,:))];   % min [x,y]
 upper = [max(X(1,:)), max(X(2,:))];   % max [x,y]
 for m=1:M

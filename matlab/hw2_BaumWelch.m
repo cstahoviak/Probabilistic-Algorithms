@@ -26,7 +26,7 @@ p = size(pyk_xk,1);     % number of unique emmision symbols
 
 % number of unique data logs to use in E-step (Berkeley notation)
 N_logs = 10;
-log_sz = [100];
+log_sz = [10, 20, 50, 100];
 
 % number of times M-step will be done
 N_mstep = 30;
@@ -94,10 +94,9 @@ for i=1:size(log_sz,2)
                 gamma(:,:,d), eln_xi(:,:,:,d), xi(:,:,:,d)] = baumwelch_Estep( ...
                 init_distr(:,s), trans_prob(:,:,s), obs_prob(:,:,s), obs_seq);
 
-            % calculate data log-likelihood for the e-step given the current
-            % CPT parameter estimates
-            nonNaN_idx = ~isnan(eln_alpha(:,end,d));
-            data_ll(d,s) = eln(sum(eexp(eln_alpha(nonNaN_idx,end,d))));
+            % calculate data log-likelihood for the e-step given the
+            % current CPT parameter estimates
+            data_ll(d,s) = get_data_log_likelihood_eln( eln_alpha(:,:,d) );
         end
 
         % do M-step given D iterations of the E-step
@@ -147,11 +146,11 @@ for i=1:size(log_sz,2)
     plot(data_ll_mean(:,i));
     title('Baum-Welch EM Parameter Estimation','Interpreter','latex');
     xlabel('EM iteration, $s$','Interpreter','latex');
-    ylabel('total data log-likelihood','Interpreter','latex');
+    ylabel('average data log-likelihood','Interpreter','latex');
     hold on;
     hdl = legend();
 end
-set(hdl,'Interpreter','latex');
+set(hdl,'Interpreter','latex','Location','best');
 
 return;
 

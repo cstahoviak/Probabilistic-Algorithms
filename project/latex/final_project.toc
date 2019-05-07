@@ -1,0 +1,8 @@
+\contentsline {section}{\numberline {1}Application and Context}{2}% 
+\contentsline {subsection}{\numberline {1.1}Radar Doppler Velocity}{2}% 
+\contentsline {section}{\numberline {2}Probabilistic Model}{2}% 
+\contentsline {subsection}{\numberline {2.1}Radar Doppler Generative Model}{2}% 
+\contentsline {section}{\numberline {3}Objectives}{3}% 
+\contentsline {subsection}{\numberline {3.1}Brute Force Parameter Estimation}{4}% 
+\contentsline {subsection}{\numberline {3.2}MLESAC Parameter Estimation}{4}% 
+\contentsline {subsection}{\numberline {3.3}Orthogonal Distance Regression Parameter Estimation}{5}% 

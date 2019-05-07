@@ -47,8 +47,9 @@ eln_posterior = gamma;  % true posterior, not log-posterior
 
 % calculate data log-likelihood for ext-log forward-backward alg.
 nonNaN_idx = ~isnan(eln_alpha(:,end));
-data_ll_elnfb = eln(sum(eexp(eln_alpha(nonNaN_idx,end))));
+data_ll_elnfb = get_data_log_likelihood_eln( eln_alpha );
 fprintf('\nExt-Log FB data log-likelihood = %f\n\n', data_ll_elnfb);
+
 
 %% Liklihood-Weighted Sampling
 
@@ -78,7 +79,7 @@ tspan = linspace(1,size(y_obs,1),5000)';
 figure(1)
 plot(state,'.','MarkerSize',10); hold on;
 plot(eln_state,'o','MarkerSize',10);
-% plot(lw_state,'diamond','MarkerSize',7);
+plot(lw_state,'diamond','MarkerSize',7);
 plot(tspan,trace);
 plot(tspan,eln_trace,'--');
 % plot(tspan,lw_trace,'--');
@@ -91,10 +92,10 @@ ylabel('state, $x_k$','Interpreter','latex');
 % hdl = legend('forward-backward','likelihood-weighted inference', ...
 %     'fwd-bck state trace', 'likelihood-weighted trace');
 % for problem 3
-hdl = legend('forward-backward','ext-log forward-backward', ...
-    'fwd-bck state trace', 'ext-log fwd-bck state trace');
 % hdl = legend('forward-backward','ext-log forward-backward', ...
-%     'likelihood-weighted inference','fwd-bck state trace', ...
-%     'ext-log fwd-bck state trace');
+%     'fwd-bck state trace', 'ext-log fwd-bck state trace');
+hdl = legend('forward-backward','ext-log forward-backward', ...
+    'likelihood-weighted inference','fwd-bck state trace', ...
+    'ext-log fwd-bck state trace');
 set(hdl,'Interpreter','latex','Location','Northwest')
 
