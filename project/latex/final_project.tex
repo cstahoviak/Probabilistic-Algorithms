@@ -172,11 +172,11 @@ For the case of the radar doppler generative model, the data log-likelihood func
 where $\epsilon_i = f(\theta_i;\boldsymbol{\beta}) - v_{r,i}$. What follows is a derivation of the final form of the data log-likelihood, $\log P(\mathbf{v_r} \vert \boldsymbol{\beta})$.
 
 \begin{equation}
-	\log \bigg\lbrack \left( \frac{1}{(2\pi\sigma_{v_r}^2)} \right)^{N/2} \cdot \left( \exp \bigg\lbrace -\frac{1}{2\sigma_{v_r}^2} \epsilon_1^2 \bigg\rbrace \times \cdots \times \exp \bigg\lbrace -\frac{1}{2\sigma_{v_r}^2} \epsilon_N^2 \bigg\rbrace  \right) \bigg\rbrack
+	\log \bigg\lbrack \left( \frac{1}{2\pi\sigma_{v_r}^2} \right)^{N/2} \cdot \left( \exp \bigg\lbrace -\frac{1}{2\sigma_{v_r}^2} \epsilon_1^2 \bigg\rbrace \times \cdots \times \exp \bigg\lbrace -\frac{1}{2\sigma_{v_r}^2} \epsilon_N^2 \bigg\rbrace  \right) \bigg\rbrack
 \end{equation}
 
 \begin{equation}
-	\frac{N}{2} \log \left( \frac{1}{(2\pi\sigma_{v_r}^2)} \right) + \log \bigg\lbrack \exp \bigg\lbrace -\frac{1}{2\sigma_{v_r}^2} \epsilon_1^2 \bigg\rbrace \times \cdots \times \exp \bigg\lbrace -\frac{1}{2\sigma_{v_r}^2} \epsilon_N^2 \bigg\rbrace \bigg\rbrack
+	\frac{N}{2} \log \left( \frac{1}{2\pi\sigma_{v_r}^2} \right) + \log \bigg\lbrack \exp \bigg\lbrace -\frac{1}{2\sigma_{v_r}^2} \epsilon_1^2 \bigg\rbrace \times \cdots \times \exp \bigg\lbrace -\frac{1}{2\sigma_{v_r}^2} \epsilon_N^2 \bigg\rbrace \bigg\rbrack
 \end{equation}
 
 \begin{equation}

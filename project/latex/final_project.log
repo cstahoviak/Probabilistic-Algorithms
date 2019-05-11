@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7000) (preloaded format=pdflatex 2019.5.3)  7 MAY 2019 15:33
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7000) (preloaded format=pdflatex 2019.5.3)  7 MAY 2019 15:50
 entering extended mode
 **./final_project.tex
 (final_project.tex
@@ -1154,7 +1154,7 @@ hood-eps-converted-to.pdf>] (final_project.bbl) [6] (final_project.aux) )
 Here is how much of TeX's memory you used:
  27136 strings out of 494864
  522897 string characters out of 3178364
- 639260 words of memory out of 3000000
+ 640260 words of memory out of 3000000
  30385 multiletter control sequences out of 15000+200000
  543727 words of font info for 67 fonts, out of 3000000 for 9000
  0 hyphenation exceptions out of 8191
@@ -1177,7 +1177,7 @@ type1/public/amsfonts/cm/cmr9.pfb></home/carl/.miktex/texmfs/install/fonts/type
 1/public/amsfonts/cm/cmsy10.pfb></home/carl/.miktex/texmfs/install/fonts/type1/
 public/amsfonts/cm/cmsy7.pfb></home/carl/.miktex/texmfs/install/fonts/type1/pub
 lic/amsfonts/cm/cmti10.pfb>
-Output written on final_project.pdf (6 pages, 868552 bytes).
+Output written on final_project.pdf (6 pages, 868543 bytes).
 PDF statistics:
  129 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
